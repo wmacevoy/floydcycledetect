@@ -31,13 +31,19 @@ public class Main {
         return d < sequential ? d - sequential : (d - sequential) % cycle;
     }
 
+    // clever algorithm!
     // returns length before cycle & cycle length (0 for no cycle) and
     // phase 1 iteration count (phase 2 = N), (phase 3 = C).
     int[] floyd1() {
+        
+        // cost: 3*(N+C)+2*N+1*C=5*N+4*C 
         int t = 0;
         int fast = begin();
         int slow = begin();
+     
         if (fast == end()) return new int[] { 0, 0, 0 };
+        
+        // phase 1
         for (;;) {
             t += 1;
             fast = next(fast);
@@ -50,6 +56,7 @@ public class Main {
             }
         }
         
+        // phase 2 sequence length
         int N = 0;
         slow = begin();
         for (;;) {
@@ -59,6 +66,7 @@ public class Main {
             N += 1;
         }
         
+        // phase 3 cycle length
         int C = 0;
         for (;;) {
             fast = next(fast);
